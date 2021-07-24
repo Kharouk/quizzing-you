@@ -1,6 +1,5 @@
 <script>
   export let title;
-  let subtitle = 'Be wary of the challenge.';
 
   const questions = [
     {
@@ -18,22 +17,26 @@
       ],
       correctAnswer: 0,
     },
+    {
+      question: 'Favourite Platform to learn?',
+      options: ["O'Reilly", 'AlgoExpert', 'BigMachine', 'Udemy'],
+      correctAnswer: 0,
+    },
   ];
 
-  let result;
+  let answers = [];
 
   function pickAnswer(answer, questionNumber) {
-    result =
+    answers[questionNumber] =
       answer ===
       questions[questionNumber].options[questions[questionNumber].correctAnswer]
-        ? 'Correct!'
+        ? 'Nice one eh!'
         : 'Wrong answer bud.';
   }
 </script>
 
 <div>
   <h1>{title}</h1>
-  <h3>{subtitle}</h3>
   <section>
     <div>
       {#each questions as question, idx}
@@ -42,8 +45,8 @@
         {#each question.options as option}
           <button on:click={() => pickAnswer(option, idx)}>{option}</button>
         {/each}
-        {#if result}
-          <h4>Answer: {result}</h4>
+        {#if answers[idx]}
+          <h4>{answers[idx]}</h4>
         {/if}
       {/each}
     </div>

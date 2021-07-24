@@ -1,5 +1,4 @@
 <script>
-  import questions from '../data/dummyQuestions';
   import Question from './Question.svelte';
   export let title;
 

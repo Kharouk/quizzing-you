@@ -20,6 +20,7 @@
       max-width: none;
     }
   }
+
   :global(button) {
     margin-right: 1rem;
     margin-left: 1rem;
@@ -32,5 +33,9 @@
 
   :global(button:hover) {
     background-color: #ff3333;
+  }
+
+  :global(.hasPassed button) {
+    background-color: green;
   }
 </style>

@@ -1,10 +1,12 @@
 <script>
   import { fade } from 'svelte/transition';
   import Question from './Question.svelte';
+  import Modal from './Modal.svelte';
 
   export let title;
   let activeQuestion = 0;
   let tally = 0;
+  let isModalOpen = false;
 
   let quiz;
   let quizId;
@@ -17,11 +19,10 @@
   const MOVIES_ID = 11;
   const GENERAL_ID = 9;
 
-  function startQuiz(difficulty) {
+  function resetData() {
     tally = 0;
+    isModalOpen = false;
     activeQuestion = 0;
-    quiz = getQuiz(difficulty);
-    quizId = '';
   }
 
   function chooseQuizType(qId) {
@@ -36,13 +37,17 @@
     activeQuestion += 1;
   }
 
-  // reactive statement
-  $: if (tally > 7) {
-    console.log('likely to win.');
+  function startQuiz(difficulty) {
+    resetData();
+    quiz = getQuiz(difficulty);
+    quizId = '';
   }
 
-  // reactive declaration
-  $: nextQuestionPoint = activeQuestion + 1;
+  // reactive statement -> monitoring game state
+  $: if (activeQuestion > 9) {
+    // trigger modal to complete the game
+    isModalOpen = true;
+  }
 
   async function getQuiz(difficulty) {
     const res = await fetch(
@@ -96,6 +101,15 @@
   {/if}
 </div>
 
+{#if isModalOpen}
+  <Modal hasPassed={tally / 10 > 0.6}>
+    <h2>You've completed <em>the quiz!</em></h2>
+    <p>Your score is {tally} out of 10.</p>
+    <p>{tally / 10 > 0.6 ? 'You passed!' : 'You FAILED 💀'}</p>
+    <button on:click={resetData}>Play again</button>
+  </Modal>
+{/if}
+
 <style>
   :root {
     --color-primary: #e82042;
@@ -109,13 +123,4 @@
     overflow-wrap: break-word;
     hyphens: auto;
   }
-
-  /* .fade-wrapper {
-    position: absolute;
-    margin-left: auto;
-    margin-left: auto;
-    margin-right: auto;
-    left: 0;
-    right: 0;
-  } */
 </style>

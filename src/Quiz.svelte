@@ -2,28 +2,31 @@
   import Question from './Question.svelte';
   export let title;
   let activeQuestion = 0;
+  let tally = 0;
+
+  let quiz;
   let quizId;
 
   // IDs for Quiz API:
   const COMPUTERS_ID = 18;
   const TV_ID = 14;
   const CELEBS_ID = 26;
+  const SPORTS_ID = 21;
+  const MOVIES_ID = 11;
+  const GENERAL_ID = 9;
 
-  let tally = 0;
-
-  function updateTally() {
-    tally += 1;
+  function startQuiz(difficulty) {
+    tally = 0;
+    quiz = getQuiz(difficulty);
+    quizId = '';
   }
-
-  let quiz;
 
   function chooseQuizType(qId) {
     quizId = qId;
   }
 
-  function handleClick(difficulty) {
-    quiz = getQuiz(difficulty);
-    quizId = '';
+  function updateTally() {
+    tally += 1;
   }
 
   function handleNextQuestion() {
@@ -47,14 +50,19 @@
     <button on:click={() => chooseQuizType(COMPUTERS_ID)}>Computers</button>
     <button on:click={() => chooseQuizType(TV_ID)}>TV Shows</button>
     <button on:click={() => chooseQuizType(CELEBS_ID)}>Celebs</button>
+    <button on:click={() => chooseQuizType(SPORTS_ID)}>Sports</button>
+    <button on:click={() => chooseQuizType(MOVIES_ID)}>Movies</button>
+    <button on:click={() => chooseQuizType(GENERAL_ID)}
+      >General Knowledge</button
+    >
   {/if}
 
   {#if quizId}
     <h2>Choose your difficulty:</h2>
-    <button on:click={() => handleClick('')}>Mixed</button>
-    <button on:click={() => handleClick('easy')}>Easy</button>
-    <button on:click={() => handleClick('medium')}>Medium</button>
-    <button on:click={() => handleClick('hard')}>Hard</button>
+    <button on:click={() => startQuiz('')}>Mixed</button>
+    <button on:click={() => startQuiz('easy')}>Easy</button>
+    <button on:click={() => startQuiz('medium')}>Medium</button>
+    <button on:click={() => startQuiz('hard')}>Hard</button>
   {/if}
 
   <section>

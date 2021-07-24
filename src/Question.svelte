@@ -27,12 +27,13 @@
 
 {#each answers as answer}
   <button
-    class={hasClicked && 'disable'}
+    class:disable={hasClicked}
     disabled={hasClicked}
     on:click|once={() => pickAnswer(answer)}>{@html answer}</button
   >
 {/each}
 
+<!-- class:correct={isCorrect} class:incorrect={!isCorrect} === class={isCorrect? 'correct': 'incorrect'} -->
 {#if hasClicked}
   <h4 class:correct={isCorrect} class:incorrect={!isCorrect}>
     {#if isCorrect}

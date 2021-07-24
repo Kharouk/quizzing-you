@@ -1,16 +1,25 @@
 <script>
   export let subtitle = 'Be wary of the challenge.';
-  import Calculator from './Calculator.svelte';
-  let inputText = 0;
+  export let title;
 </script>
 
 <div>
-  <h2>Welcome to the Great British Sweat Quiz!</h2>
+  <h1>{title}</h1>
   <h3>{subtitle}</h3>
-  <section>
-    <h4>Your salary is ${inputText}</h4>
-    <input bind:value={inputText} type="text" />
-    <hr />
-    <Calculator />
-  </section>
+  <section />
 </div>
+
+<style>
+  :root {
+    --color-primary: #bb33ee;
+  }
+
+  h1 {
+    color: var(--color-primary);
+    text-transform: uppercase;
+    font-size: clamp(2rem, -0.875rem + 8.333vw, 3.5rem);
+    font-weight: 100;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+</style>

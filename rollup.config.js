@@ -1,12 +1,13 @@
 import svelte from 'rollup-plugin-svelte';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
-import replace from '@rollup/plugin-replace';
-import json from '@rollup/plugin-json';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
+
 import { config } from 'dotenv';
+import replace from '@rollup/plugin-replace';
+import json from '@rollup/plugin-json';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -45,7 +46,6 @@ export default {
   },
   plugins: [
     replace({
-      preventAssignment: true,
       __api: JSON.stringify({
         env: {
           isProd: production,
@@ -54,6 +54,7 @@ export default {
       }),
     }),
     json(),
+
     svelte({
       compilerOptions: {
         // enable run-time checks when not in production

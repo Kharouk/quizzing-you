@@ -9,7 +9,6 @@
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^17.0.0",
-    "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^11.0.0",
     "@rollup/plugin-replace": "^3.0.0",
     "dotenv": "^10.0.0",
@@ -21,6 +20,7 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "@rollup/plugin-json": "^4.1.0",
     "@supabase/supabase-js": "^1.20.0",
     "sirv-cli": "^1.0.0"
   }

@@ -1,9 +1,11 @@
 <script>
   import Quiz from './Quiz.svelte';
+  import Scoreboard from './Scoreboard.svelte';
   export let title;
 </script>
 
 <main>
+  <Scoreboard />
   <Quiz {title} />
 </main>
 

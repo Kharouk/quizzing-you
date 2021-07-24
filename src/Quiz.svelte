@@ -1,12 +1,44 @@
 <script>
-  export let subtitle = 'Be wary of the challenge.';
   export let title;
+  let subtitle = 'Be wary of the challenge.';
+
+  const questions = {
+    1: {
+      question: 'What colour is the sky today?',
+      options: ['Blue', 'Gray', 'Slightly Pink', 'Apocalyptic Red'],
+      correctAnswer: 1,
+    },
+  };
+
+  let result = '';
+
+  function pickAnswer(answer) {
+    console.log(answer);
+    result =
+      answer === questions[1].options[questions[1].correctAnswer]
+        ? 'Correct!'
+        : 'Wrong answer bud.';
+  }
 </script>
 
 <div>
   <h1>{title}</h1>
   <h3>{subtitle}</h3>
-  <section />
+  <section>
+    <div>
+      <h4>Question 1</h4>
+      <p>{questions[1].question}</p>
+      <button on:click={() => pickAnswer('Blue')}>Blue</button>
+      <button on:click={() => pickAnswer('Gray')}>Gray</button>
+      <button on:click={() => pickAnswer('Slightly Pink')}>
+        Slightly Pink
+      </button>
+      <button on:click={() => pickAnswer('Apocalyptic Red')}>
+        Apocalyptic Red
+      </button>
+      <h4>Answer: {result}</h4>
+    </div>
+  </section>
 </div>
 
 <style>

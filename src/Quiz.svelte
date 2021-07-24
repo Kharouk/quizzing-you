@@ -36,7 +36,13 @@
     activeQuestion += 1;
   }
 
-  $:
+  // reactive statement
+  $: if (tally > 7) {
+    console.log('likely to win.');
+  }
+
+  // reactive declaration
+  $: nextQuestionPoint = activeQuestion + 1;
 
   async function getQuiz(difficulty) {
     const res = await fetch(

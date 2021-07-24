@@ -29,16 +29,16 @@
   <button
     class={hasClicked && 'disable'}
     disabled={hasClicked}
-    on:click={() => pickAnswer(answer)}>{@html answer}</button
+    on:click|once={() => pickAnswer(answer)}>{@html answer}</button
   >
 {/each}
 
 {#if hasClicked}
-  <h4 class={isCorrect ? 'correct' : 'incorrect'}>
+  <h4 class:correct={isCorrect} class:incorrect={!isCorrect}>
     {#if isCorrect}
       Good job eh! 🌲
     {:else}
-      Sorry, the answer was "{correct_answer}". Next time bud. 🪦
+      Sorry, the answer was "{@html correct_answer}". Next time bud. 🪦
     {/if}
   </h4>
   <button on:click={handleNextQuestion}>Next Question</button>

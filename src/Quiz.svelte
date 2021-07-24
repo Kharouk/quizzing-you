@@ -2,20 +2,30 @@
   export let title;
   let subtitle = 'Be wary of the challenge.';
 
-  const questions = {
-    1: {
+  const questions = [
+    {
       question: 'What colour is the sky today?',
       options: ['Blue', 'Gray', 'Slightly Pink', 'Apocalyptic Red'],
       correctAnswer: 1,
     },
-  };
+    {
+      question: 'Favourite Coffee to buy at the Local Cafe?',
+      options: [
+        'Cold Brew',
+        'Mother Fucker',
+        'Double Express',
+        'Apocalyptic Wow',
+      ],
+      correctAnswer: 0,
+    },
+  ];
 
-  let result = '';
+  let result;
 
-  function pickAnswer(answer) {
-    console.log(answer);
+  function pickAnswer(answer, questionNumber) {
     result =
-      answer === questions[1].options[questions[1].correctAnswer]
+      answer ===
+      questions[questionNumber].options[questions[questionNumber].correctAnswer]
         ? 'Correct!'
         : 'Wrong answer bud.';
   }
@@ -26,17 +36,16 @@
   <h3>{subtitle}</h3>
   <section>
     <div>
-      <h4>Question 1</h4>
-      <p>{questions[1].question}</p>
-      <button on:click={() => pickAnswer('Blue')}>Blue</button>
-      <button on:click={() => pickAnswer('Gray')}>Gray</button>
-      <button on:click={() => pickAnswer('Slightly Pink')}>
-        Slightly Pink
-      </button>
-      <button on:click={() => pickAnswer('Apocalyptic Red')}>
-        Apocalyptic Red
-      </button>
-      <h4>Answer: {result}</h4>
+      {#each questions as question, idx}
+        <h4>Question {idx}</h4>
+        <p>{question.question}</p>
+        {#each question.options as option}
+          <button on:click={() => pickAnswer(option, idx)}>{option}</button>
+        {/each}
+        {#if result}
+          <h4>Answer: {result}</h4>
+        {/if}
+      {/each}
     </div>
   </section>
 </div>

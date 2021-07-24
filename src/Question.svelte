@@ -26,7 +26,11 @@
 <h3>{@html question.question}</h3>
 
 {#each answers as answer}
-  <button on:click={() => pickAnswer(answer)}>{@html answer}</button>
+  <button
+    class={hasClicked && 'disable'}
+    disabled={hasClicked}
+    on:click={() => pickAnswer(answer)}>{@html answer}</button
+  >
 {/each}
 
 {#if hasClicked}
@@ -34,7 +38,7 @@
     {#if isCorrect}
       Good job eh! 🌲
     {:else}
-      Next time bud. 🪦
+      Sorry, the answer was "{correct_answer}". Next time bud. 🪦
     {/if}
   </h4>
   <button on:click={handleNextQuestion}>Next Question</button>
@@ -46,5 +50,9 @@
   }
   .incorrect {
     color: #ff3300;
+  }
+
+  .disable {
+    background-color: #eee;
   }
 </style>

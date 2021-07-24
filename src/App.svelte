@@ -29,6 +29,7 @@
     border-radius: 0.5rem;
     background-color: #e82042;
   }
+
   :global(button:hover) {
     background-color: #ff3333;
   }

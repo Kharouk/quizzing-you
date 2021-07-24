@@ -55,7 +55,7 @@
 
 <style>
   :root {
-    --color-primary: #bb33ee;
+    --color-primary: #e82042;
   }
 
   h1 {

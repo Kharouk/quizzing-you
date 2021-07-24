@@ -1,5 +1,7 @@
 <script>
+  import { fade } from 'svelte/transition';
   import Question from './Question.svelte';
+
   export let title;
   let activeQuestion = 0;
   let tally = 0;
@@ -17,6 +19,7 @@
 
   function startQuiz(difficulty) {
     tally = 0;
+    activeQuestion = 0;
     quiz = getQuiz(difficulty);
     quizId = '';
   }
@@ -32,6 +35,8 @@
   function handleNextQuestion() {
     activeQuestion += 1;
   }
+
+  $:
 
   async function getQuiz(difficulty) {
     const res = await fetch(
@@ -65,8 +70,8 @@
     <button on:click={() => startQuiz('hard')}>Hard</button>
   {/if}
 
-  <section>
-    {#if quiz}
+  {#if quiz}
+    <section>
       <h2>Total Score: {tally}</h2>
       <div>
         {#await quiz}
@@ -74,13 +79,15 @@
         {:then { results }}
           {#each results as question, idx}
             {#if idx == activeQuestion}
-              <Question {question} {updateTally} {handleNextQuestion} />
+              <div out:fade={{ duration: 200 }} in:fade={{ delay: 200 }}>
+                <Question {question} {updateTally} {handleNextQuestion} />
+              </div>
             {/if}
           {/each}
         {/await}
       </div>
-    {/if}
-  </section>
+    </section>
+  {/if}
 </div>
 
 <style>
@@ -96,4 +103,13 @@
     overflow-wrap: break-word;
     hyphens: auto;
   }
+
+  /* .fade-wrapper {
+    position: absolute;
+    margin-left: auto;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+  } */
 </style>

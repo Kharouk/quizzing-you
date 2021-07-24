@@ -1,8 +1,11 @@
 <script>
   export let question;
   export let updateTally;
+  export let handleNextQuestion;
+
   let isCorrect;
   let hasClicked = false;
+
   const { correct_answer, incorrect_answers } = question;
 
   let answers = []
@@ -34,6 +37,7 @@
       Next time bud. 🪦
     {/if}
   </h4>
+  <button on:click={handleNextQuestion}>Next Question</button>
 {/if}
 
 <style>

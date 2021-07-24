@@ -33,11 +33,23 @@
         ? 'Nice one eh!'
         : 'Wrong answer bud.';
   }
+
+  async function getQuiz() {
+    const res = await fetch(
+      'https://opentdb.com/api.php?amount=10&category=18&type=multiple'
+    );
+    const quiz = await res.json();
+    console.log(quiz);
+  }
 </script>
 
 <div>
   <h1>{title}</h1>
   <section>
+    <div>
+      <p>Ready to play?</p>
+      <button on:click={() => getQuiz()}>Play</button>
+    </div>
     <div>
       {#each questions as question, idx}
         <h4>Question {idx}</h4>

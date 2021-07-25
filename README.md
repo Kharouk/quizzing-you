@@ -1,17 +1,13 @@
 # jack of <em>all</em> quizzes.
 
+## Link
+
 Check it out [here](https://jack-of-all-quizzes.vercel.app).
-
-```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
-```
-
-_Note that you will need to have [Node.js](https://nodejs.org) installed._
 
 ## Get started
 
 Install the dependencies...
+_Note that you will need to have [Node.js](https://nodejs.org) installed._
 
 ```bash
 cd svelte-app

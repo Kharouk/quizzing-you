@@ -5,8 +5,8 @@
 </script>
 
 <main>
-  <Scoreboard />
   <Quiz {title} />
+  <Scoreboard />
 </main>
 
 <style>

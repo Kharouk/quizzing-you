@@ -38,6 +38,7 @@ function serve() {
 
 export default {
   input: 'src/main.js',
+  context: 'window', // https://github.com/supabase/supabase-js/issues/124
   output: {
     sourcemap: true,
     format: 'iife',
@@ -45,6 +46,7 @@ export default {
     file: 'public/build/bundle.js',
   },
   plugins: [
+    json(),
     replace({
       __api: JSON.stringify({
         env: {
@@ -53,8 +55,6 @@ export default {
         },
       }),
     }),
-    json(),
-
     svelte({
       compilerOptions: {
         // enable run-time checks when not in production

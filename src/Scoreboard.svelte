@@ -1,5 +1,5 @@
 <script>
-  import { supabase } from './supabaseClient';
+  import { supabase } from '../data/supabaseClient';
 
   const getData = async () => {
     try {

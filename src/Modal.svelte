@@ -1,11 +1,12 @@
 <script>
   import { createEventDispatcher } from 'svelte';
   import { fly } from 'svelte/transition';
-  import { supabase } from './supabaseClient';
+  import { supabase } from '../data/supabaseClient';
+  import { tally } from '../data/store';
 
   const dispatch = createEventDispatcher();
   export let hasPassed = false;
-  export let score;
+  export let quizData;
 
   const CATEGORIES = {
     18: 'Computers',
@@ -18,7 +19,7 @@
 
   let name;
   const createNewScore = async () => {
-    const { tally, quizCategory } = score;
+    const { quizCategory } = quizData;
 
     const { data, error } = await supabase.from('highscores').insert([
       {

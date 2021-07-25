@@ -1,6 +1,6 @@
 <script>
+  import { tally } from '../data/store';
   export let question;
-  export let updateTally;
   export let handleNextQuestion;
 
   let isCorrect;
@@ -15,7 +15,7 @@
   function pickAnswer(answer) {
     hasClicked = true;
     if (answer === correct_answer) {
-      updateTally();
+      tally.update((val) => val + 1);
       isCorrect = true;
     } else {
       isCorrect = false;

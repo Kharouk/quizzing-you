@@ -2,10 +2,10 @@
   import { fade } from 'svelte/transition';
   import Question from './Question.svelte';
   import Modal from './Modal.svelte';
+  import { tally } from '../data/store';
 
   export let title;
   let activeQuestion = 0;
-  let tally = 0;
   let isModalOpen = false;
 
   let quiz;
@@ -21,7 +21,7 @@
   const GENERAL_ID = 9;
 
   function resetData() {
-    tally = 0;
+    tally.set(0);
     isModalOpen = false;
     activeQuestion = 0;
     quiz = undefined;
@@ -30,10 +30,6 @@
   function chooseQuizType(qId) {
     quizId = qId;
     quizCategory = qId;
-  }
-
-  function updateTally() {
-    tally += 1;
   }
 
   function handleNextQuestion() {
@@ -85,7 +81,7 @@
 
   {#if quiz}
     <section>
-      <h2>Total Score: {tally}</h2>
+      <h2>Total Score: {$tally}</h2>
       <div>
         {#await quiz}
           <p>loading...</p>
@@ -93,7 +89,7 @@
           {#each results as question, idx}
             {#if idx == activeQuestion}
               <div out:fade={{ duration: 200 }} in:fade={{ delay: 200 }}>
-                <Question {question} {updateTally} {handleNextQuestion} />
+                <Question {question} {handleNextQuestion} />
               </div>
             {/if}
           {/each}
@@ -106,12 +102,12 @@
 {#if isModalOpen}
   <Modal
     on:close={resetData}
-    hasPassed={tally / 10 > 0.6}
-    score={{ tally, quizCategory }}
+    hasPassed={$tally / 10 > 0.6}
+    quizData={{ quizCategory }}
   >
     <h2>You've completed <em>the quiz!</em></h2>
-    <p>Your score is {tally} out of 10.</p>
-    <p>{tally / 10 > 0.6 ? 'You passed!' : 'You FAILED 💀'}</p>
+    <p>Your score is {$tally} out of 10.</p>
+    <p>{$tally / 10 > 0.6 ? 'You passed!' : 'You FAILED 💀'}</p>
     <button on:click={resetData}>Play again</button>
   </Modal>
 {/if}

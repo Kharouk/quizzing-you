@@ -1,8 +1,35 @@
 <script>
   import { createEventDispatcher } from 'svelte';
   import { fly } from 'svelte/transition';
-  export let hasPassed = false;
+  import { supabase } from './supabaseClient';
+
   const dispatch = createEventDispatcher();
+  export let hasPassed = false;
+  export let score;
+
+  const CATEGORIES = {
+    18: 'Computers',
+    14: 'Television',
+    26: 'Celebs',
+    21: 'Sports',
+    11: 'Film',
+    9: 'General',
+  };
+
+  let name;
+  const createNewScore = async () => {
+    const { tally, quizCategory } = score;
+
+    const { data, error } = await supabase.from('highscores').insert([
+      {
+        name,
+        score: tally,
+        category: CATEGORIES[quizCategory],
+      },
+    ]);
+
+    if (error) throw error;
+  };
 </script>
 
 <div
@@ -19,6 +46,18 @@
     >
       Close
     </button>
+    <div>
+      <h3>Want to record your score?</h3>
+      <form on:submit|preventDefault={createNewScore}>
+        <input bind:value={name} />
+        <button
+          type="submit"
+          on:click={() => {
+            dispatch('close');
+          }}>Submit</button
+        >
+      </form>
+    </div>
     <slot />
   </div>
 </div>

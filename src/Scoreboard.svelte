@@ -27,15 +27,15 @@
 
 <div class="wrapper">
   <table>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Score</th>
-      <th scope="col">Date</th>
-      <th scope="col">Category</th>
-    </tr>
     {#await highscores}
-      <p>Loading</p>
+      <p>Loading Highscores</p>
     {:then data}
+      <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Score</th>
+        <th scope="col">Date</th>
+        <th scope="col">Category</th>
+      </tr>
       {#each data as user}
         <tr>
           <th scope="row">{user.name}</th>

@@ -10,6 +10,7 @@
 
   let quiz;
   let quizId;
+  let quizCategory;
 
   // IDs for Quiz API:
   const COMPUTERS_ID = 18;
@@ -28,6 +29,7 @@
 
   function chooseQuizType(qId) {
     quizId = qId;
+    quizCategory = qId;
   }
 
   function updateTally() {
@@ -45,7 +47,7 @@
   }
 
   // reactive statement -> monitoring game state
-  $: if (activeQuestion > 9) {
+  $: if (activeQuestion > 0) {
     // trigger modal to complete the game
     isModalOpen = true;
   }
@@ -102,7 +104,11 @@
 </div>
 
 {#if isModalOpen}
-  <Modal on:close={resetData} hasPassed={tally / 10 > 0.6}>
+  <Modal
+    on:close={resetData}
+    hasPassed={tally / 10 > 0.6}
+    score={{ tally, quizCategory }}
+  >
     <h2>You've completed <em>the quiz!</em></h2>
     <p>Your score is {tally} out of 10.</p>
     <p>{tally / 10 > 0.6 ? 'You passed!' : 'You FAILED 💀'}</p>

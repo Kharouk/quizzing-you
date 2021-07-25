@@ -43,7 +43,7 @@
   }
 
   // reactive statement -> monitoring game state
-  $: if (activeQuestion > 0) {
+  $: if (activeQuestion > 9) {
     // trigger modal to complete the game
     isModalOpen = true;
   }

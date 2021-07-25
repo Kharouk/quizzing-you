@@ -23,6 +23,7 @@
     tally = 0;
     isModalOpen = false;
     activeQuestion = 0;
+    quiz = undefined;
   }
 
   function chooseQuizType(qId) {
@@ -54,7 +55,6 @@
       `https://opentdb.com/api.php?amount=10&category=${quizId}&type=multiple&difficulty=${difficulty}`
     );
     const quiz = await res.json();
-    console.log(quiz.results);
     return quiz;
   }
 </script>
@@ -102,7 +102,7 @@
 </div>
 
 {#if isModalOpen}
-  <Modal hasPassed={tally / 10 > 0.6}>
+  <Modal on:close={resetData} hasPassed={tally / 10 > 0.6}>
     <h2>You've completed <em>the quiz!</em></h2>
     <p>Your score is {tally} out of 10.</p>
     <p>{tally / 10 > 0.6 ? 'You passed!' : 'You FAILED 💀'}</p>

@@ -49,10 +49,16 @@
   </table>
 </div>
 
-<style>
+<style lang="scss">
+  $border-style: 1px dashed #333;
+
   .wrapper {
     display: grid;
     margin-top: 5rem;
-    border: 1px dashed red;
+    border: $border-style;
+
+    td:not(:last-child) {
+      border-right: $border-style;
+    }
   }
 </style>

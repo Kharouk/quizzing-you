@@ -24,7 +24,7 @@
     const { data, error } = await supabase.from('highscores').insert([
       {
         name,
-        score: tally,
+        score: $tally,
         category: CATEGORIES[quizCategory],
       },
     ]);

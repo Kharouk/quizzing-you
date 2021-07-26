@@ -7,6 +7,7 @@
   const dispatch = createEventDispatcher();
   export let hasPassed = false;
   export let quizData;
+  let hasSubmitted = false;
 
   const CATEGORIES = {
     18: 'Computers',
@@ -20,7 +21,6 @@
   let name;
   const createNewScore = async () => {
     const { quizCategory } = quizData;
-
     const { data, error } = await supabase.from('highscores').insert([
       {
         name,
@@ -28,7 +28,7 @@
         category: CATEGORIES[quizCategory],
       },
     ]);
-
+    hasSubmitted = true;
     if (error) throw error;
   };
 </script>
@@ -47,18 +47,19 @@
     >
       Close
     </button>
-    <div>
-      <h3>Want to record your score?</h3>
-      <form on:submit|preventDefault={createNewScore}>
-        <input bind:value={name} />
-        <button
-          type="submit"
-          on:click={() => {
-            dispatch('close');
-          }}>Submit</button
-        >
-      </form>
-    </div>
+    {#if !hasSubmitted}
+      <div>
+        <h3>Want to record your score?</h3>
+        <form on:submit|preventDefault={createNewScore}>
+          <input bind:value={name} />
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    {:else}
+      <div>
+        <p>Nice one!</p>
+      </div>
+    {/if}
     <slot />
   </div>
 </div>
